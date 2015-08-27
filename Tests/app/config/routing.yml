@@ -1,0 +1,6 @@
+secure_resource:
+    path: /api/company
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: 127.0.0.1
+
