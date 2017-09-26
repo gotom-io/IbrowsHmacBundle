@@ -101,7 +101,7 @@ class HmacAuthenticationProvider implements AuthenticationProviderInterface
         $this->userChecker->checkPostAuth($user);
 
 
-        $authenticatedToken = new HmacUserToken(array('ROLE_API'));
+        $authenticatedToken = new HmacUserToken($user->getRoles());
         $authenticatedToken->setRequest($token->getRequest());
         $authenticatedToken->setPassedSignature($token->getPassedSignature());
         $authenticatedToken->setAuthenticationProviderKey($token->getAuthenticationProviderKey());
