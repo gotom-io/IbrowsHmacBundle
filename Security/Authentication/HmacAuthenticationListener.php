@@ -89,6 +89,9 @@ class HmacAuthenticationListener implements ListenerInterface
             $token->setAuthenticationProviderKey($this->providerKey);
             $authenticatedToken = $this->authenticationManager->authenticate($token);
             $this->securityContext->setToken($authenticatedToken);
+            if (null !== $this->logger) {
+                $this->logger->info('API User has been authenticated successfully.', array('username' => $token->getUsername()));
+            }
         } catch (MalformedRequestException $exception) {
             $body = "\nMessage: " . $exception->getMessage();
             $body .= "\n\nUri: " . $request->getUri();
