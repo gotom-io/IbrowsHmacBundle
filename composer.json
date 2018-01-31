@@ -18,9 +18,9 @@
   ],
   "minimum-stability": "stable",
   "require": {
-    "symfony/security-bundle": "^2.8",
-    "symfony/security": "^2.8",
-    "symfony/framework-bundle": "^2.8",
+    "symfony/security-bundle": "^2.8|^3.4",
+    "symfony/security": "^2.8|^3.4",
+    "symfony/framework-bundle": "^2.8|^3.4",
     "acquia/http-hmac-php": "^1.0"
   },
   "require-dev": {
