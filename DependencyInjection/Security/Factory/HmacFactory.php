@@ -4,6 +4,7 @@ namespace Ibrows\HmacBundle\DependencyInjection\Security\Factory;
 
 use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\SecurityFactoryInterface;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
+use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Reference;
@@ -23,15 +24,15 @@ class HmacFactory implements SecurityFactoryInterface
     {
         $providerBaseId = 'ibrows_hmac.security.authentication.provider';
         $providerId = $providerBaseId . '.' . $id;
-        $service = $container->setDefinition($providerId, new DefinitionDecorator($providerBaseId));
+        $service = $container->setDefinition($providerId, new ChildDefinition($providerBaseId));
         $service->replaceArgument(0, new Reference($userProvider));
         $service->replaceArgument(2, $id);
         $service->replaceArgument(4, $config['authentication_provider_key']);
 
         $listenerBaseId = 'ibrows_hmac.security.authentication.listener';
         $listenerId = $listenerBaseId . '.' . $id;
-        $service = $container->setDefinition($listenerId, new DefinitionDecorator($listenerBaseId));
-        $service->replaceArgument(0, new Reference('security.context')); // need to avoid ServiceCircularReferenceException
+        $service = $container->setDefinition($listenerId, new ChildDefinition($listenerBaseId));
+        $service->replaceArgument(0, new Reference('security.token_storage')); // need to avoid ServiceCircularReferenceException
         $service->replaceArgument(2, $id);
         $service->replaceArgument(3, $config['authentication_provider_key']);
         $service->replaceArgument(4, $defaultEntryPoint);
