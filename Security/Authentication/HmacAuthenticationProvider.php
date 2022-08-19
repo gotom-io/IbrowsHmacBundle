@@ -106,6 +106,7 @@ class HmacAuthenticationProvider implements AuthenticationProviderInterface
         $authenticatedToken->setPassedSignature($token->getPassedSignature());
         $authenticatedToken->setAuthenticationProviderKey($token->getAuthenticationProviderKey());
         $authenticatedToken->setAttributes($token->getAttributes());
+        $authenticatedToken->setUser($user);
 
         return $authenticatedToken;
     }
