@@ -40,7 +40,7 @@ class HmacAuthenticationProvider implements AuthenticationProviderInterface
      * @param string                $providerKey The provider key
      * @param bool                  $hideUserNotFoundExceptions Whether to hide user not found exception or not
      */
-    public function __construct(UserProviderInterface $userProvider, UserCheckerInterface $userChecker, $providerKey, $hideUserNotFoundExceptions = true, $authenticationProviderKey)
+    public function __construct(UserProviderInterface $userProvider, UserCheckerInterface $userChecker, $providerKey, $hideUserNotFoundExceptions, $authenticationProviderKey)
     {
         if (empty($providerKey)) {
             throw new \InvalidArgumentException('$providerKey must not be empty.');
