@@ -15,10 +15,9 @@ class Configuration implements ConfigurationInterface
     /**
      * {@inheritdoc}
      */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('ibrows_hmac');
+        $treeBuilder = new TreeBuilder('ibrows_hmac');
 
         return $treeBuilder;
     }

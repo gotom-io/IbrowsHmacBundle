@@ -15,7 +15,6 @@ encoders:
         api:
             pattern:  ^/api
             stateless: true
-            anonymous: ~
             provider: api_provider
             ibrows_hmac:
                 authentication_provider_key: ibrows

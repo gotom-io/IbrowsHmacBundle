@@ -1,6 +1,6 @@
 framework:
     secret:        test
-    router:        { resource: "%kernel.root_dir%/config/routing.yml" }
+    router:        { resource: "%kernel.project_dir%/config/routing.yml" }
     test: ~
     default_locale: en
     session:
@@ -10,11 +10,11 @@ services:
     logger: { class: Psr\Log\NullLogger }
 
 security:
+    enable_authenticator_manager: true
     firewalls:
         api:
             pattern:  ^/api
             stateless: true
-            anonymous: ~
             provider: api_provider
             ibrows_hmac:
                 authentication_provider_key: ibrows

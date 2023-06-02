@@ -13,6 +13,6 @@ class IbrowsHmacBundle extends Bundle
         parent::build($container);
 
         $extension = $container->getExtension('security');
-        $extension->addSecurityListenerFactory(new HmacFactory());
+        $extension->addAuthenticatorFactory(new HmacFactory());
     }
 }
