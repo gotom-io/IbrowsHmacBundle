@@ -21,7 +21,6 @@
     "php": ">=8.0",
     "symfony/security-bundle": "~5.4",
     "symfony/framework-bundle": "~5.4",
-    "acquia/http-hmac-php": "^1.0",
     "symfony/config": "^6.3",
     "symfony/yaml": "^6.3"
   },

@@ -2,10 +2,6 @@
 
 namespace Ibrows\HmacBundle\Security\Authentication;
 
-
-use Acquia\Hmac\Exception\MalformedRequestException;
-use Acquia\Hmac\Request\Symfony;
-use Acquia\Hmac\RequestSigner;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,11 +38,9 @@ class HmacAuthenticator extends AbstractAuthenticator
 
     public function authenticate(Request $request): Passport
     {
-        $requestWrapper = new Symfony($request);
-        $requestSigner = new RequestSigner();
-        $requestSigner->setProvider($this->providerKey);
+        $requestSigner = new RequestSigner($this->providerKey);
         try {
-            $passedSignature = $requestSigner->getSignature($requestWrapper);
+            $passedSignature = $requestSigner->getSignature($request);
         } catch (MalformedRequestException $exception) {
             throw new CustomUserMessageAuthenticationException($exception->getMessage(), [], 401, $exception);
         }
@@ -67,9 +61,9 @@ class HmacAuthenticator extends AbstractAuthenticator
 
         $user = $this->retrieveUser($userId);
 
-        $requestSigner = new RequestSigner();
+        $requestSigner = new RequestSigner($this->providerKey);
         $requestSigner->setProvider($this->providerKey);
-        $requestSignature = $requestSigner->signRequest($requestWrapper, $user->getPassword());
+        $requestSignature = $requestSigner->signRequest($request, $user->getPassword());
         if (!$passedSignature->matches($requestSignature)) {
             throw new CustomUserMessageAuthenticationException('Signature not valid', [(string) $passedSignature, $requestSignature], 401);
 
