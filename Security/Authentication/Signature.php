@@ -41,6 +41,7 @@ class Signature
 
     /**
      * @throws \InvalidArgumentException
+     * @return int -1 = to old, 1 = to far, 0 = ok
      */
     public function compareTimestamp(int|string $expiry): int
     {
