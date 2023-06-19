@@ -26,7 +26,7 @@ class RequestSigner
 
         // Check the provider.
         $header = $headers->get('Authorization');
-        if (!str_contains($header, $this->provider.' ')) {
+        if (!str_starts_with($header, $this->provider.' ')) {
             throw new CustomUserMessageAuthenticationException('Invalid provider in authorization header');
         }
 
