@@ -6,23 +6,10 @@
 
 
     <services>
-        <service id="ibrows_hmac.security.authentication.provider" class="Ibrows\HmacBundle\Security\Authentication\HmacAuthenticationProvider">
-            <argument /> <!-- User Provider -->
-            <argument type="service" id="security.user_checker" />
-            <argument /> <!-- Firewall-shared Key -->
-            <argument>%security.authentication.hide_user_not_found%</argument>
-            <argument /> <!-- authenticationProviderKey -->
-        </service>
-
-        <service id="ibrows_hmac.security.authentication.listener" class="Ibrows\HmacBundle\Security\Authentication\HmacAuthenticationListener" public="false" abstract="true">
-            <tag name="monolog.logger" channel="security" />
-            <argument /> <!-- security.context -->
-            <argument type="service" id="security.authentication.manager" />
-            <argument /> <!-- Firewall-shared Key -->
-            <argument /> <!-- authenticationProviderKey -->
-            <argument /> <!-- EntryPoint -->
-            <argument type="service" id="logger" on-invalid="null" />
-        </service>
+      <service id="ibrows_hmac.security.authenticator" class="Ibrows\HmacBundle\Security\Authentication\HmacAuthenticator" abstract="true">
+        <argument type="abstract" /> <!-- User Provider -->
+        <argument type="abstract"/> <!-- authenticationProviderKey -->
+      </service>
     </services>
 
 </container>

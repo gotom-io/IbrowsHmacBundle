@@ -22,56 +22,46 @@ use Symfony\Component\HttpKernel\Kernel;
  */
 class AppKernel extends Kernel
 {
-    private $rootConfig;
+    private string $rootConfig;
 
-    public function __construct($rootConfig, $environment, $debug)
+
+    public function __construct(string $rootConfig, string $environment, bool $debug)
     {
+        $this->rootConfig = $rootConfig;
         $fs = new Filesystem();
         if (!$fs->isAbsolutePath($rootConfig) && !is_file($rootConfig = __DIR__.'/'.$rootConfig)) {
             throw new \InvalidArgumentException(sprintf('The root config "%s" does not exist.', $rootConfig));
         }
-        $this->rootConfig = $rootConfig;
 
         parent::__construct($environment, $debug);
     }
 
-    public function registerBundles()
+    public function registerBundles(): iterable
     {
-        return array(
-        new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-        new \Symfony\Bundle\SecurityBundle\SecurityBundle(),
-        new \Ibrows\HmacBundle\IbrowsHmacBundle(),
-        );
+        return [
+            new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
+            new \Symfony\Bundle\SecurityBundle\SecurityBundle(),
+            new \Ibrows\HmacBundle\IbrowsHmacBundle(),
+        ];
     }
 
-    public function getRootDir()
-    {
-        return __DIR__;
-    }
-
-    public function getCacheDir()
+    public function getCacheDir(): string
     {
         return sys_get_temp_dir().'/'.Kernel::VERSION.'/cache/'.$this->environment;
     }
 
-    public function getLogDir()
+    public function getLogDir(): string
     {
         return sys_get_temp_dir().'/'.Kernel::VERSION.'/logs';
     }
 
-    public function registerContainerConfiguration(LoaderInterface $loader)
+    public function getProjectDir(): string
     {
-        $loader->load($this->rootConfig);
+        return __DIR__;
     }
 
-    public function serialize()
+    public function registerContainerConfiguration(LoaderInterface $loader): void
     {
-        return serialize(array($this->rootConfig, $this->getEnvironment(), $this->isDebug()));
-    }
-
-    public function unserialize($str)
-    {
-        $a = unserialize($str);
-        $this->__construct($a[0], $a[1], $a[2], $a[3]);
+        $loader->load(__DIR__ . '/' . $this->rootConfig);
     }
 }

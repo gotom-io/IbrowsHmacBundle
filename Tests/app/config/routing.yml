@@ -1,6 +1,6 @@
 secure_resource:
     path: /api/company
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction
     defaults:
-        _controller: FrameworkBundle:Redirect:urlRedirect
-        path: 127.0.0.1
+      path: 127.0.0.1
 
