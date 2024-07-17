@@ -11,7 +11,6 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class HmacFactory implements AuthenticatorFactoryInterface
 {
-
     public function getKey(): string
     {
         return 'ibrows_hmac';
@@ -34,5 +33,10 @@ class HmacFactory implements AuthenticatorFactoryInterface
         $service->replaceArgument(1, $config['authentication_provider_key']);
 
         return $providerId;
+    }
+
+    public function getPriority(): int
+    {
+        return 0;
     }
 }
