@@ -8,7 +8,7 @@ api_provider:
                         roles:  ['ROLE_API']
 
 
-encoders:
+password_hashers:
         Symfony\Component\Security\Core\User\User: plaintext
 
     firewalls:

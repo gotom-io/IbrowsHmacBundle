@@ -56,7 +56,7 @@ Install & setup the bundle
                     authentication_provider_key: me
         access_control:
             - { path: ^/api/, roles: ROLE_API }
-        encoders:
+        password_hashers:
             Symfony\Component\Security\Core\User\User: plaintext
         providers:
             api_provider:
